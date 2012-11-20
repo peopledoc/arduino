@@ -1,9 +1,9 @@
 """Make a serial led.
 
-// Code on the arduino
-
-int led = 13;
+int led = 11;
 int car;
+
+int lastStatus = LOW;
 
 void setup(){
   pinMode(led, OUTPUT);
@@ -13,10 +13,14 @@ void setup(){
 void loop(){
   if(Serial.available() > 0) {
     car = Serial.read();
-    if(car == 'H') digitalWrite(led, HIGH);
-    if(car == 'L') digitalWrite(led, LOW);
+    if(car == 'H') {
+        if(lastStatus == LOW) lastStatus = HIGH;
+        else lastStatus = LOW;
+        digitalWrite(led, lastStatus);
+    }
   }
 }
+
 """
 import serial
 import sys
@@ -33,15 +37,13 @@ def main():
     else:
         sys.stderr.write('Failed to open serial on : %s\n' % ser.portstr)
         sys.exit(1)
-    
-    while ser.isOpen():
+
+    if ser.isOpen():
         ser.write('H');
-        time.sleep(2);
+        ser.write('E');
         ser.write('L');
-        time.sleep(2);
+        ser.write('L');
+        ser.write('O');
 
 if __name__ == '__main__':
-    try:
-        main()
-    except KeyboardInterrupt:
-        print "\nBye bye"
+    main()

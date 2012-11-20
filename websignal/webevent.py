@@ -4,7 +4,7 @@ import time
 from flask import Flask, redirect, request
 
 app = Flask(__name__)
-ser = serial.Serial('/dev/ttyACM0', 9600)
+ser = serial.Serial('/dev/ttyACM1', 9600)
 #ser.open()
 if ser.isOpen():
     print("Listening on: ", ser.portstr)
