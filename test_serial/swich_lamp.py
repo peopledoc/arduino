@@ -28,22 +28,15 @@ import time
 
 def main():
     ser = serial.Serial('/dev/ttyACM0', 9600)
-    try:
-        ser.open()
-    except:
-        pass
+
     if ser.isOpen():
         print("Listening on: ", ser.portstr)
     else:
         sys.stderr.write('Failed to open serial on : %s\n' % ser.portstr)
         sys.exit(1)
 
-    if ser.isOpen():
-        ser.write('H');
-        ser.write('E');
-        ser.write('L');
-        ser.write('L');
-        ser.write('O');
+    ser.write('r');
+    ser.close();
 
 if __name__ == '__main__':
     main()
