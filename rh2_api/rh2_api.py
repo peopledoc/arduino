@@ -19,6 +19,8 @@ def send_event(ser, led, total, on, off):
 
 def main():
     ser = serial.Serial('/dev/ttyACM1', 9600)
+    time.sleep(3) # Time to let the arduino start.
+    print "Run"
     try:
         ser.open()
     except:
@@ -30,12 +32,17 @@ def main():
         sys.stderr.write('Failed to open serial on : %s\n' % ser.portstr)
         sys.exit(1)
 
-    send_event(ser, 0, 100, 50, 50)
-    send_event(ser, 1, 60, 30, 30)
-    send_event(ser, 2, 30, 20, 20)
-    send_event(ser, 3, 10, 10, 10)
+    while True:
+        send_event(ser, 0, 250, 120, 120)
+        send_event(ser, 1, 250, 60, 60)
+        send_event(ser, 2, 250, 30, 30)
+        send_event(ser, 3, 250, 15, 15)
+        time.sleep(26)
     
     ser.close();
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print

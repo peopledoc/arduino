@@ -20,6 +20,8 @@ def send_event(ser, led, total, on, off):
 
 def main():
     ser = serial.Serial('/dev/ttyACM1', 9600)
+    time.sleep(3)
+    print "Run"
     try:
         ser.open()
     except:
