@@ -32,18 +32,14 @@ def main():
         sys.exit(1)
 
     while True:
-        send_event(ser, 0, 200, 200, 0)
+        send_event(ser, 0, 40, 200, 0)
         time.sleep(1)
-        send_event(ser, 1, 200, 200, 0)
+        send_event(ser, 1, 30, 200, 0)
         time.sleep(1)
-        send_event(ser, 2, 200, 200, 0)
+        send_event(ser, 2, 20, 200, 0)
         time.sleep(1)
-        send_event(ser, 3, 200, 200, 0)
+        send_event(ser, 3, 10, 200, 0)
         time.sleep(1)
-        send_event(ser, 0, 0, 0, 0)
-        send_event(ser, 1, 0, 0, 0)
-        send_event(ser, 2, 0, 0, 0)
-        send_event(ser, 3, 0, 0, 0)
         time.sleep(1)
     
     ser.close();
