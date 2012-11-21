@@ -3,9 +3,9 @@ const int NB_LEDS = 4;
 const int START_BYTE = '~'; // 126
 
 unsigned long startTrigger[NB_LEDS];
-unsigned long totalTime[NB_LEDS];
-unsigned long onTime[NB_LEDS];
-unsigned long offTime[NB_LEDS];
+int totalTime[NB_LEDS];
+int onTime[NB_LEDS];
+int offTime[NB_LEDS];
 
 unsigned long currentTime;
 int led;
@@ -29,17 +29,25 @@ void setup(){
 void loop(){
   // Read the serial port and configure the event
   
-  if(Serial.available() > 0) {
+  if(Serial.available() >= 5) {
     if(Serial.read() == START_BYTE){ // Flush the Serial until we find a start byte.
-      led = Serial.read();
-      if(led < 0 || led > 6) return;
-      totalTime[led] = Serial.read() * 100;
-      onTime[led] = Serial.read() * 10;
-      offTime[led] = Serial.read() * 10;
-      startTrigger[led] = millis();
-      if(onTime[led] > 0) {
-        digitalWrite(leds[led], HIGH);
+      led = ((int) Serial.read());
+      if(led < 0 || led > 6){
+        Serial.flush();
+        return; 
       }
+      totalTime[led] = Serial.read();
+      onTime[led] = Serial.read();
+      offTime[led] = Serial.read();
+      startTrigger[led] = millis();
+      if(totalTime[led] > 0) {
+        digitalWrite(leds[led], HIGH);
+      } else {
+        digitalWrite(leds[led], LOW);
+        startTrigger[led] = 0;
+      }
+      
+      
       Serial.print(millis());
       Serial.print(' ');
       Serial.print(led);
@@ -58,14 +66,14 @@ void loop(){
   for(led = 0; led < NB_LEDS; led++){
     currentTime = millis();
     // If totalTime is expired : turn off the led
-    if(currentTime > startTrigger[led] + totalTime[led]) {
+    if(currentTime > startTrigger[led] + totalTime[led]*100) {
       digitalWrite(leds[led], LOW);
     } else {
       // Time lapsed since the animation start
       // currentStatus = currentTime - startTrigger[led];
       
       // Time of on animation period
-      periodTime = onTime[led] + offTime[led];
+      periodTime = onTime[led]*10 + offTime[led]*10;
       
       // In which period are we ? 1, 2 ,3 ...
       currentPeriod = (currentTime - startTrigger[led]) / periodTime;
@@ -74,7 +82,7 @@ void loop(){
       periodStartTime = startTrigger[led] + currentPeriod * periodTime;
       
       // Are we in the On part or the Off part ?
-      if ((currentTime - periodStartTime) > onTime[led]) 
+      if ((currentTime - periodStartTime) > onTime[led]*10) 
         digitalWrite(leds[led], LOW);
       else 
         digitalWrite(leds[led], HIGH);

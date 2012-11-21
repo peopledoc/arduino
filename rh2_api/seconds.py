@@ -6,6 +6,7 @@ def send_event(ser, led, total, on, off):
     """Write the data to the API.
     StartByte LedNumber TotalTime (seconds) OnTime(hundredth of second) OffTime(hundredth of second)
     """
+    ser.flushInput()
     # Start byte
     ser.write('~')
     # Led id
@@ -31,18 +32,18 @@ def main():
         sys.exit(1)
 
     while True:
-        send_event(ser, 0, 200, 10, 10)
-        time.sleep(2)
-        send_event(ser, 1, 200, 10, 10)
-        time.sleep(2)
-        send_event(ser, 2, 200, 10, 10)
-        time.sleep(2)
-        send_event(ser, 3, 200, 10, 10)
-        time.sleep(2)
-        send_event(ser, 0, 200, 1, 255)
-        send_event(ser, 1, 200, 1, 255)
-        send_event(ser, 2, 200, 1, 255)
-        send_event(ser, 3, 200, 1, 255)
+        send_event(ser, 0, 200, 200, 0)
+        time.sleep(1)
+        send_event(ser, 1, 200, 200, 0)
+        time.sleep(1)
+        send_event(ser, 2, 200, 200, 0)
+        time.sleep(1)
+        send_event(ser, 3, 200, 200, 0)
+        time.sleep(1)
+        send_event(ser, 0, 1, 10, 10)
+        send_event(ser, 1, 1, 10, 10)
+        send_event(ser, 2, 1, 10, 10)
+        send_event(ser, 3, 1, 10, 10)
     
     ser.close();
 
