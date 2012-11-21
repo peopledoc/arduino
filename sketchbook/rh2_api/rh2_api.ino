@@ -37,10 +37,20 @@ void loop(){
       onTime[led] = Serial.read() * 10;
       offTime[led] = Serial.read() * 10;
       startTrigger[led] = millis();
-      digitalWrite(leds[led], HIGH);
+      if(onTime[led] > 0) {
+        digitalWrite(leds[led], HIGH);
+      }
       Serial.print(millis());
       Serial.print(' ');
-      Serial.println(led);
+      Serial.print(led);
+      Serial.print(' ');
+      Serial.print(totalTime[led]);
+      Serial.print(' ');
+      Serial.print(onTime[led]);
+      Serial.print(' ');
+      Serial.print(offTime[led]);
+      Serial.print(' ');
+      Serial.println(startTrigger[led]);
     }
   }
   
