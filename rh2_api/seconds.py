@@ -40,10 +40,11 @@ def main():
         time.sleep(1)
         send_event(ser, 3, 200, 200, 0)
         time.sleep(1)
-        send_event(ser, 0, 1, 10, 10)
-        send_event(ser, 1, 1, 10, 10)
-        send_event(ser, 2, 1, 10, 10)
-        send_event(ser, 3, 1, 10, 10)
+        send_event(ser, 0, 0, 0, 0)
+        send_event(ser, 1, 0, 0, 0)
+        send_event(ser, 2, 0, 0, 0)
+        send_event(ser, 3, 0, 0, 0)
+        time.sleep(1)
     
     ser.close();
 
