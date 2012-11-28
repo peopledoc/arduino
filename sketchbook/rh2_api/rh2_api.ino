@@ -1,5 +1,5 @@
 // Define the number of leds.
-const int NB_LEDS = 4;
+const int NB_LEDS = 5;
 const int START_BYTE = '~'; // 126
 
 unsigned long startTrigger[NB_LEDS];

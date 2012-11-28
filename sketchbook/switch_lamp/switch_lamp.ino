@@ -6,7 +6,7 @@ int lastStatus = LOW;
 void setup(){
   pinMode(led, OUTPUT);
   Serial.begin(9600);
-  Serial.print('Restart')
+  Serial.print('Restart');
 }
 
 void loop(){
