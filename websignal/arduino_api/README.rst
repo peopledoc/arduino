@@ -10,4 +10,4 @@ Ping a led::
 
 Send a sequence:
 
-   curl -X POST http://127.0.0.1:6543/ -d '{"events":[{"led": 0, "total":1000, "on":100, "off":100}, {"led": 1, "total":1000, "on":100, "off":100}]}'
+   curl -X POST http://127.0.0.1:6543/ -d '{"events":[{"led": 0, "total":10000, "on":200, "off":200}, {"led": 1, "total":10000, "on":100, "off":100}, {"led": 2, "total":10000, "on":200, "off":100}]}'
