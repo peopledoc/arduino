@@ -18,7 +18,7 @@ def send_event(ser, led, total, on, off):
     ser.write(chr(off))    
 
 def main():
-    ser = serial.Serial('/dev/ttyACM1', 9600)
+    ser = serial.Serial('/dev/ttyACM0', 9600)
     time.sleep(3) # Time to let the arduino start.
     print "Run"
     try:
